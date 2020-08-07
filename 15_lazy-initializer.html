@@ -6,11 +6,15 @@
     <script type="text/babel">
         const rootElement = document.getElementById('root')
         function Greeting() {
+            //React allows us to specify a function instead of an actual value, 
+            //then it will only call that function when it needs to–on the initial render.
             const [name, setName] = React.useState(
                 () => window.localStorage.getItem('name')
                 || '')
             React.useEffect(() => {
                 window.localStorage.setItem('name', name)
+     
+            //add a dependency array so it is updated only when the state it relies on changes
             },[name])
             const handleChange = event => setName(event.target.value)
             return (
