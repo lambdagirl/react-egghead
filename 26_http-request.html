@@ -6,7 +6,20 @@
     <script type="text/babel">
 
         function PokemonInfo({pokemonName}){
-            return <div>Need to request infor for: {pokemonName}</div>
+            const [pokemon, setPokemon] = React.useState(null)
+            React.useEffect(() => {
+            if (!pokemonName ){
+                return
+            }
+            fetchPokemon(pokemonName).then(
+                pokemonData => {
+                    setPokemon(pokemonData)
+            })
+        },[pokemonName])
+            if (!pokemon){
+                return '...'
+            }
+            return <pre>{JSON.stringify(pokemon,null,2)}</pre>
         }
 
         function App() {
@@ -28,7 +41,6 @@
                     <hr />
                     <PokemonInfo pokemonName= {pokemonName} />
                 </div>
-                
             )
         }
 
