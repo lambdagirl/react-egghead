@@ -6,16 +6,14 @@
     <script type="text/babel">
         const rootElement = document.getElementById('root')
 
-        
+
         function UsernameForm() {
             const [username, setUsername] = React.useState('')
             const handleChange = (event) => {
-                setUsername(event.target.value)
+                setUsername(event.target.value.toLowerCase())
             }
-            const isLowerCase = username === username.toLowerCase();
-            const error = isLowerCase ? null : 'Username shoulf be lowerCase';
 
-            function handleSubmit(event){
+            function handleSubmit(event) {
                 event.preventDefault()
                 alert(`you entered: ${username}`)
             }
@@ -24,10 +22,9 @@
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="usernameInput" > Username: </label>
-                        <input id = "usernameInput"type="text" onChange={handleChange}/>
+                        <input id="usernameInput" type="text" onChange={handleChange} value={username}/>
                     </div>
-                    <div style={{color: 'red'}}>{error}</div>
-                    <button disabled={Boolean(error)} type="submit">Submit </button>
+                    <button type="submit">Submit </button>
                 </form>
             )
         }
