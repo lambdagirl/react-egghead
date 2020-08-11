@@ -1,0 +1,36 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+        const rootElement = document.getElementById('root')
+        function useHover() {
+            const [hovering,setHovering] = React.useState(false)
+            const mouseOver = () => setHovering(true)
+            const mouseOut = () => setHovering(false)
+            
+            const attrs = {
+                onMouseOver: mouseOver,
+                onmouseout: mouseOue
+            }
+            return [hovering,attrs]
+        }
+
+        function Info ({ id, size }) {
+            const [hoving, attrs] = useHover()
+            return (
+                <>
+                    {hovering === true 
+                    ? <Tooltip id= {id} />
+                    : null
+                    }
+                    <svg {...attrs}viewBox="0 0 16 16" width={size}>
+                        <path
+                            d="M9 8a1 1 0 0 0-1-1H5.5a1 1 0 1 0 0 2H7v4a1 1 0 0 0 2 0zM4 0h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4zm4 5.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                    </svg>
+                </>
+            )}
+    ReactDOM.render(<Info />, rootElement)
+    </script>
+</body>
