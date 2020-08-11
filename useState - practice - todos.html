@@ -1,0 +1,43 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+function Todo() {
+const [todos, setTodos] = React.useState([]);
+const [input, setInput] = React.useState("");
+
+function handleSummit() {
+setTodos((todos) =>
+todos.concat({
+text: input,
+id: Math.random()
+})
+);
+setInput("");
+}
+return (
+<div>
+    <input type="text" value={input} placeholder="new todo" onChange={(e)=> setInput(e.target.value)}
+    />
+    <button onClick={handleSummit} type="submit">
+        Add todo{" "}
+    </button>
+    <ul>
+        {todos.map(({ text, id }) => (
+        <li key={id}>
+            <span>{text}</span>
+        </li>
+        ))}
+    </ul>
+</div>
+);
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+<Todo />, rootElement);
+
+</script>
+    </body>
