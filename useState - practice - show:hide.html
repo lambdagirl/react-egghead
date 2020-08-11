@@ -1,0 +1,62 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+    
+function App({ posts }) {
+  const [openIndex, setOpenIndex] = React.useState(0);
+  return (
+    <ul>
+      {posts.map(({ id, img, text }) => {
+        const isOpen = openIndex === id;
+        const TextToShow = isOpen ? text : text.substring(0, 100) + "...";
+
+        return (
+          <li key={id} style={{ border: isOpen ? "1px solid black" : "none" }}>
+            <img src={img} alt="Post avatar" />
+            <p>{TextToShow}</p>
+            {!isOpen && (
+              <button type="submit" onClick={() => setOpenIndex(id)}>
+                open
+              </button>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+  <App
+    posts={[
+      {
+        id: 0,
+        img:
+          "https://ui.dev/static/65a0af90a3518a93db8014015b5015dd/6050d/thumbnail-code-splitting-with-react-and-react-router-v4.png",
+        text:
+          "Code splitting has gained popularity recently for its ability to allow you to split your app into separate bundles your users can progressively load. In this post we’ll take a look at not only what code splitting is and how to do it, but also how to implement it with React Router."
+      },
+      {
+        id: 1,
+        img:
+          "https://ui.dev/static/333b6c0cfbc893ef9f5f0b0e17f9c560/6050d/thumbnail-javascript-inheritance-vs-composition.png",
+        text:
+          "The problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. - Joe Armstrong."
+      },
+      {
+        id: 2,
+        img:
+          "https://ui.dev/static/235e200aa9a5f1e8abcba4737452e2b7/6050d/thumbnail-javascript-modules-from-iifes-to-commonjs-to-es6-modules.png",
+        text:
+          "I’ve taught JavaScript for a long time to a lot of people. Consistently the most commonly under-learned aspect of the language is the module system. There’s good reason for that. Modules in JavaScript have a strange and erratic history. In this post we’ll walk through that history and you’ll learn modules of the past to better understand how JavaScript modules work today."
+      }
+    ]}
+  />,
+  rootElement
+);
+</script>
+    </body>
