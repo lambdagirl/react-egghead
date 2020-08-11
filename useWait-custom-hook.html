@@ -16,10 +16,10 @@
 
             React.useEffect(
                 ()=>{
-                    let timer = setTimeout(()=>{
+                    const id = window.setTimeout(()=>{
                         setShow(true)
                     },delay);
-                    return () => clearTimeout(timer)
+                    return () => window.clearTimeout(id)
                 },[delay]
             )
         return show
