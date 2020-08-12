@@ -1,0 +1,67 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+    /*
+    Instructions:
+    You're given the UI for a basic form. Your task is to
+    hook it all up using refs.
+
+    The `Focus X Input` buttons should focus that specific input
+    field.
+
+    The `Submit` button should log `name`, `email`, and `password`
+    to the console.
+
+    The `Reset` button should result all of the input fields to
+    empty strings.
+    */
+
+    function Form() {
+    const handleSubmit = (e) => {};
+
+    const handleReset = () => {};
+    const nameRef = React.useRef(null);
+    const emailRef = React.useRef(null);
+    const passwordRef = React.useRef(null);
+
+    return (
+    <React.Fragment>
+        <label>
+            Name:
+            <input placeholder="name" type="text" ref={nameRef} />
+        </label>
+        <label>
+            Email:
+            <input placeholder="email" type="text" ref={emailRef} />
+        </label>
+        <label>
+            Password:
+            <input placeholder="password" type="text" ref={passwordRef} />
+        </label>
+
+        <hr />
+
+        <button onClick={()=> nameRef.current.focus()}>Focus Name Input</button>
+        <button onClick={()=> emailRef.current.focus()}>
+            Focus Email Input
+        </button>
+        <button onClick={()=> passwordRef.current.focus()}>
+            Focus Password Input
+        </button>
+
+        <hr />
+
+        <button>Submit</button>
+        <button>Reset</button>
+    </React.Fragment>
+    );
+    }
+    const rootElement = document.getElementById("root");
+    ReactDOM.render(
+    <Form />, rootElement);
+
+</script>
+</body>
