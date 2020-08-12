@@ -25,7 +25,11 @@
             console.log(nameRef.current.value, emailRef.current.value, passwordRef.current.value);
         };
 
-        const handleReset = () => {};
+        const handleReset = () => {
+            nameRef.current.value = ''
+            emailRef.current.value = ''
+            passwordRef.current.value = ''
+        }
         const nameRef = React.useRef(null);
         const emailRef = React.useRef(null);
         const passwordRef = React.useRef(null);
