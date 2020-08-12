@@ -4,6 +4,26 @@
     <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/babel">
+
+        function Slider ({onChange, min, max}){
+            const [value, setValue] = React.useState(1)
+            return (
+                <>
+                {value}
+                <input
+                    type="range"
+                    min = {min}
+                    max = {max}
+                    value = {value}
+                    onChange = {(e) => {
+                        const value = Number(e.target.value)
+                        onChange(value)
+                        setValue(value)
+                    }}
+                />
+                </>
+            )
+        }
         function reducer(state,action){
             if (action === 'increment'){
                 return state + 1
@@ -22,6 +42,12 @@
                 )
             return (
                 <>
+                <Slider
+                        min={1}
+                        max={10}
+                        onChange={() => ({}) }
+                    />
+                <hr />
                 <h1>{count}</h1>
                 <button onClick={()=>dispatch('increment')}> + </button>
                 <button onClick={()=>dispatch('decrement')}> - </button>
