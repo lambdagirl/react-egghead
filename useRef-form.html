@@ -20,48 +20,51 @@
     */
 
     function Form() {
-    const handleSubmit = (e) => {};
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            console.log(nameRef.current.value, emailRef.current.value, passwordRef.current.value);
+        };
 
-    const handleReset = () => {};
-    const nameRef = React.useRef(null);
-    const emailRef = React.useRef(null);
-    const passwordRef = React.useRef(null);
+        const handleReset = () => {};
+        const nameRef = React.useRef(null);
+        const emailRef = React.useRef(null);
+        const passwordRef = React.useRef(null);
 
-    return (
-    <React.Fragment>
-        <label>
-            Name:
-            <input placeholder="name" type="text" ref={nameRef} />
-        </label>
-        <label>
-            Email:
-            <input placeholder="email" type="text" ref={emailRef} />
-        </label>
-        <label>
-            Password:
-            <input placeholder="password" type="text" ref={passwordRef} />
-        </label>
+        return (
+        <React.Fragment>
+            <label>
+                Name:
+                <input placeholder="name" type="text" ref={nameRef} />
+            </label>
+            <label>
+                Email:
+                <input placeholder="email" type="text" ref={emailRef} />
+            </label>
+            <label>
+                Password:
+                <input placeholder="password" type="text" ref={passwordRef} />
+            </label>
 
-        <hr />
+            <hr />
 
-        <button onClick={()=> nameRef.current.focus()}>Focus Name Input</button>
-        <button onClick={()=> emailRef.current.focus()}>
-            Focus Email Input
-        </button>
-        <button onClick={()=> passwordRef.current.focus()}>
-            Focus Password Input
-        </button>
+            <button onClick={()=> nameRef.current.focus()}>Focus Name Input</button>
+            <button onClick={()=> emailRef.current.focus()}>
+                Focus Email Input
+            </button>
+            <button onClick={()=> passwordRef.current.focus()}>
+                Focus Password Input
+            </button>
 
-        <hr />
+            <hr />
 
-        <button>Submit</button>
-        <button>Reset</button>
-    </React.Fragment>
-    );
-    }
-    const rootElement = document.getElementById("root");
-    ReactDOM.render(
-    <Form />, rootElement);
+            <button>Submit</button>
+            <button>Reset</button>
+        </React.Fragment>
+        );
+        }
+        const rootElement = document.getElementById("root");
+        ReactDOM.render(
+        <Form />, rootElement);
 
-</script>
+    </script>
 </body>
