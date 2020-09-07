@@ -1,109 +1,192 @@
-<body>
-    <div id="root"></div>
-    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
-    <script type="text/babel">
+import * as React from 'react'
+import {
+BrowserRouter as Router,
+Route,
+Link,
+useRouteMatch,
+useParams
+} from 'react-router-dom'
+
+const newsletters = [
+{
+name: 'React Newsletter',
+id: 'react',
+description: 'The free, weekly newsletter of the best React news, articles, projects, and more.',
+issues: [
+{
+name: '#1',
+id: '1',
+links: [
+{
+title: 'Why React Hooks?',
+url: 'https://ui.dev/why-react-hooks/',
+},
+{
+title: 'React Render Props',
+url: 'https://ui.dev/react-render-props/',
+},
+{
+title: 'React Higher-order Components',
+url: 'https://ui.dev/react-higher-order-components/',
+}
+]
+},
+{
+name: '#2',
+id: '2',
+links: [
+{
+title: 'Compiling vs Polyfills with Babel',
+url: 'https://ui.dev/compiling-polyfills/',
+},
+{
+title: 'Build your own React Router v4',
+url: 'https://ui.dev/build-your-own-react-router-v4/',
+},
+{
+title: 'React AHA Moments',
+url: 'https://ui.dev/react-aha-moments/',
+}
+]
+},
+]
+},
+{
+name: 'UI Newsletter',
+id: 'ui',
+description: 'The free, weekly newsletter of the best UI news, articles, projects, and more.',
+issues: [
+{
+name: '#1',
+id: '1',
+links: [
+{
+title: 'Computed Property Names in JavaScript',
+url: 'https://ui.dev/computed-property-names/',
+},
+{
+title: 'Imperative vs Declarative Programming',
+url: 'https://ui.dev/imperative-vs-declarative-programming/',
+},
+{
+title: 'AngularJS: Factory vs Service vs Provider',
+url: 'https://ui.dev/angularjs-factory-vs-service-vs-provider/',
+}
+]
+},
+{
+name: '#2',
+id: '2',
+links: [
+{
+title: 'Shorthand Property and Method Names in JavaScript',
+url: 'https://ui.dev/shorthand-properties/',
+},
+{
+title: 'JavaScript Inheritance vs Composition',
+url: 'https://ui.dev/javascript-inheritance-vs-composition/',
+},
+{
+title: 'var vs let vs const in JavaScript',
+url: 'https://ui.dev/var-let-const/',
+}
+]
+},
+]
+}
+]
 
 
-const topics = [
-{
-name: "React Router",
-id: "react-router",
-description: "Declarative, component based routing for React",
-resources: [
-{
-name: "URL Parameters",
-id: "url-parameters",
-description:
-"URL parameters are parameters whose values are set dynamically in a page's URL. This allows a route to render the same component while passing that component the dynamic portion of the URL so it can change based off of it.",
-url: "https://ui.dev/react-router-v4-url-parameters/"
-},
-{
-name: "Programmatically navigate",
-id: "programmatically-navigate",
-description:
-"When building an app with React Router, eventually you'll run into the question of navigating programmatically. The goal of this post is to break down the correct approaches to programmatically navigating with React Router.",
-url: "https://ui.dev/react-router-v4-programmatically-navigate/"
+function Issue () {
+const { id, issue } = useParams()
+
+const { name, links } = newsletters.find((news) => news.id === id)
+.issues.find(({ id }) => id === issue)
+
+return (
+<div>
+    <h3>{name}</h3>
+    <ul>
+        {links.map(({ title, url }) => (
+        <li key={title}>
+            <a href={url}>{title}</a>
+        </li>
+        ))}
+    </ul>
+</div>
+)
 }
-]
-},
-{
-name: "React.js",
-id: "reactjs",
-description: "A JavaScript library for building user interfaces",
-resources: [
-{
-name: "React Lifecycle Events",
-id: "react-lifecycle",
-description:
-"React Lifecycle events allow you to tie into specific phases of a component's life cycle",
-url: "https://ui.dev/an-introduction-to-life-cycle-events-in-react-js/"
-},
-{
-name: "React AHA Moments",
-id: "react-aha",
-description: "A collection of 'Aha' moments while learning React.",
-url: "https://ui.dev/react-aha-moments/"
+
+function Publication () {
+const { id } = useParams()
+const { path, url } = useRouteMatch()
+
+const { name, description, issues } = newsletters.find((news) => news.id === id)
+
+return (
+<div>
+    <h2>{name}</h2>
+    <p>{description}</p>
+
+    <ul>
+        {issues.map((issue) => (
+        <li key={issue.id}>
+            <Link to={`${url}/${issue.id}`}>{issue.name} </Link> </li> ))} </ul> <hr />
+
+            <Route path={`${path}/:issue`}> <Issue />
+            </Route>
+</div>
+)
 }
-]
-},
-{
-name: "Functional Programming",
-id: "functional-programming",
-description:
-"In computer science, functional programming is a programming paradigm—a style of building the structure and elements of computer programs—that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data.",
-resources: [
-{
-name: "Imperative vs Declarative programming",
-id: "imperative-declarative",
-description:
-"A guide to understanding the difference between Imperative and Declarative programming.",
-url: "https://ui.dev/imperative-vs-declarative-programming/"
-},
-{
-name:
-"Building User Interfaces with Pure Functions and Function Composition",
-id: "fn-composition",
-description:
-"A guide to building UI with pure functions and function composition in React",
-url:
-"https://ui.dev/building-user-interfaces-with-pure-functions-and-function-composition-in-react-js/"
+
+function Newsletters () {
+const { url, path } = useRouteMatch()
+
+return (
+<div>
+    <h1>Newsletters</h1>
+    <ul>
+        {newsletters.map(({ name, id, description }) => (
+        <li key={id}>
+            <Link to={`${url}/${id}`}>{name} </Link> <p>{description}</p>
+        </li>
+        ))}
+    </ul>
+
+    <hr />
+
+    <Route path={`${path}/:id`}> <Publication />
+    </Route>
+</div>
+)
 }
-]
-}
-];
 
 function Home() {
-return <h1>Home</h1>;
-}
-function Topics() {
-return <h1>Topics</h1>;
-}
-export default function App() {
-return (
-<BrowserRouter>
-    <div style={{ width: 1000, margin: "0 auto" }}>
-        <ul>
-            <li>
-                <Link to="/">Home</Link>
-            </li>
-            <li>
-                <Link to="/topics">Topics</Link>
-            </li>
-        </ul>
-        <hr />
-        <Route exact path="/">
-            <Home />
-        </Route>
-        <Route exact path="/topics">
-            <Topics />
-        </Route>
-    </div>
-</BrowserRouter>
-);
+return <h1>HOME</h1>
 }
 
-    ReactDOM.render(<App />, rootElement)
-</script>
-</body>
+export default function App () {
+return (
+<Router>
+    <div style={{ width: 1000, margin: '0 auto' }}>
+        <ul>
+            <li>
+                <Link to='/'>Home</Link>
+            </li>
+            <li>
+                <Link to='/newsletters'>Newsletters</Link>
+            </li>
+        </ul>
+
+        <hr />
+
+        <Route exact path='/'>
+            <Home />
+        </Route>
+        <Route path='/newsletters'>
+            <Newsletters />
+        </Route>
+    </div>
+</Router>
+)
+}
