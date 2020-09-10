@@ -6,19 +6,19 @@ function createStore (){
   //4. Update the state
 
   let state;
-  let listeners = [];//array of functions
-  const getState = () => state;
+  let listeners = [] //array of functions
+  const getState = () => state
 
   //listener is a callback function
   const subscribe = (listener) => {
     listeners.push(listener)
     return () => {
-        listeners.filter((l) => l !== listener);
+        listeners.filter((l) => l !== listener)
     }
-  };
+  }
 
   return {
     getState,
     subscribe,
-  };
+  }
 }
